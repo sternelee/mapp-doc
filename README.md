@@ -103,14 +103,21 @@ weapp: {
 
 #### 实现雪碧图
 
+由于taro中针对weapp的配置项较少, 可以借助雪碧图工具(如 CssGaga, CssSprite,ShoeBox 等) 和 gulp 工具流(如 [WeApp-Workflow](https://github.com/Jeff2Ma/WeApp-Workflow))来实现.
+样式设置不同: view 的宽高使用图片大小,但 background-size 要使用雪碧图大小.
+注意: 图片音频等资源应该用外链引入(CDN等)
+
 > todo
 
 扩展阅读： [Taro 优秀学习资源汇总](http://taro-club.jd.com/topic/17/taro-%E4%BC%98%E7%A7%80%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB)
 
 ### 小程序Canvas开发： Spritejs
 
+由于原生小游戏开发要求比较高, 用view结构来实现页面相对容易. 但部分场景需要 canvas时, 微信小程序的canvas 又太过于原生. 因此需要一种在小程序内写canvas的友好实现.
+
 [Spritejs](http://spritejs.org/#/) 是一款由360奇舞团开源的跨终端canvas绘图库，可以基于canvas快速绘制结构化UI、动画和交互效果，并发布到任何拥有canvas环境的平台上（比如浏览器、小程序和node）。
 由于是npm包，可以很好的集成到taro中。
+
 
 ### 扩展：小游戏
 
