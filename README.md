@@ -77,6 +77,7 @@ uni-app （Vue.js + H5/百度/字节/支付宝/Native）
 1. 对接口方法用 Taro. + API 名称来进行调用，如果出现未定义，则使用对应小程序平台的命名空间（如 wx、my、swan、tt 等）来进行调用。
 2. 样式选择：Sass、Less 和 stylus 随便选择
 3. 区分开发和线上环境的 API和变量: 在config中的dev.js和prod.js中设置： defineConstants
+4. 样式文件针对每个page页面来对应加载
 
 #### 解决打包后样式丢失等问题：
 
@@ -97,6 +98,10 @@ weapp: {
 ```
 可以配置中根据weapp、h5来配置编译方式（配置不同的webpack）
 
+#### 引用npm模块
+
+官方文档 [miniprogram_npm](https://developers.weixin.qq.com/miniprogram/dev/devtools/npm.html)
+
 #### 引入自定义组件
 
 比如使用 [wemark组件](https://github.com/TooBug/wemark)的步骤的例子
@@ -107,9 +112,29 @@ weapp: {
 样式设置不同: view 的宽高使用图片大小,但 background-size 要使用雪碧图大小.
 注意: 图片音频等资源应该用外链引入(CDN等)
 
-> todo
 
-扩展阅读： [Taro 优秀学习资源汇总](http://taro-club.jd.com/topic/17/taro-%E4%BC%98%E7%A7%80%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB)
+#### 音频雪碧图
+
+将多个音效合成一个音频文件, 使用 audio.currentTime 或者 AudioContext.seek 方法来跳转播放位置；
+
+第一步： 使用 `audiosprite` 来合并音频，并获取合并后的时间节点信息
+
+使用方式：
+
+方法一：
+
+设置audio对象的currentTime = 开始时间 start 并开始播放play()，以及利用`ontimeupdate`来监听当前currentTime, 大于音效节点end时间则暂停播放pause()  [🎈Demo](https://gitlab.xunlei.cn/xlsl_web/sj-m-ssl.xunlei.com/tree/master/pages/h5)
+
+方法二：（小程序使用方式）
+
+使用audioInnerContext对象的seek来跳转播放节点，并监听播放`onTimeUpdate`来判断当前时间currentTime  [📝小程序文档](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/InnerAudioContext.html)
+
+
+> 扩展阅读： [Taro 优秀学习资源汇总](http://taro-club.jd.com/topic/17/taro-%E4%BC%98%E7%A7%80%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB)
+
+### gulp工作流
+
+由于taro中针对weapp的webpack配置支持较少，可在工程下使用gulp工作流来完成css sprite雪碧图、音频合并、上传CDN等操作。 比如 [WeApp-Workflow](https://github.com/Jeff2Ma/WeApp-Workflow)
 
 ### 小程序Canvas开发： Spritejs
 
