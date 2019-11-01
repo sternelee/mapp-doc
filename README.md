@@ -70,7 +70,7 @@ uni-app （Vue.js + H5/百度/字节/支付宝/Native）
 </Swiper>
 ```
 
-不管Uni-app 还是 Taro, 都是为了表现微信小程序语法而适配的实现方式。所以在开发之前，至少都看下微信小程序官方文档。
+不管Uni-app 还是 Taro, 都是为了表现微信小程序语法而适配的实现方式。所以在开发之前，至少都看下 **小程序官方文档**。
 
 开发体验：
 
@@ -134,7 +134,8 @@ weapp: {
 
 ### gulp工作流
 
-由于taro中针对weapp的webpack配置支持较少，可在工程下使用gulp工作流来完成css sprite雪碧图、音频合并、上传CDN等操作。 比如 [WeApp-Workflow](https://github.com/Jeff2Ma/WeApp-Workflow)
+可在工程下使用gulp工作流来完成css sprite雪碧图、音频合并、上传CDN等操作。 比如 [WeApp-Workflow](https://github.com/Jeff2Ma/WeApp-Workflow)
+
 
 ### 小程序Canvas开发： Spritejs
 
