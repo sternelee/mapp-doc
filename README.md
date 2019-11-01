@@ -147,6 +147,9 @@ weapp: {
 [Spritejs](http://spritejs.org/#/) 是一款由360奇舞团开源的跨终端canvas绘图库，可以基于canvas快速绘制结构化UI、动画和交互效果，并发布到任何拥有canvas环境的平台上（比如浏览器、小程序和node）。
 由于是npm包，可以很好的集成到taro中。
 
+#### 实践 Canvas 和 Spritejs
+
+> doing
 
 ### 扩展：小游戏
 
