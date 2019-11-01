@@ -136,6 +136,9 @@ weapp: {
 
 可在工程下使用gulp工作流来完成css sprite雪碧图、音频合并、上传CDN等操作。 比如 [WeApp-Workflow](https://github.com/Jeff2Ma/WeApp-Workflow)
 
+### Taro中实现 RxJs 模式开发
+
+> todo
 
 ### 小程序Canvas开发： Spritejs
 
