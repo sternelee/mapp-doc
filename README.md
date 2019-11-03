@@ -139,7 +139,7 @@ weapp: {
 
 > todo
 
-### 小程序Canvas开发： Spritejs
+### 小程序Canvas开发， 或者 Spritejs
 
 由于原生小游戏开发要求比较高, 用view结构来实现页面相对容易. 但部分场景需要 canvas时, 微信小程序的canvas 又太过于原生. 因此需要一种在小程序内写canvas的友好实现.
 
@@ -148,16 +148,67 @@ weapp: {
 
 #### 实践 Canvas 和 Spritejs
 
-> doing
+使用微信小程序canvas来创建雪碧图精灵：
+##### 第一步： 引入图片资源
+```tsx
+// 雪碧图
+const frames = {
+  "bird1.png": {"x":2,"y":126,"w":86,"h":60},
+  "bird2.png": {"x":2,"y":64,"w":86,"h":60},
+  "bird3.png": {"x":2,"y":2,"w":86,"h":60}
+}
+// 图片预加载
+const preload = async (src) => {
+  const source = await Taro.getImageInfo({
+    src
+  })
+  return source.path
+}
+```
+##### 第二步：绘制图片
+```tsx
+const drawSprite = async (src: string, source: {x: number, y: number, w: number, h: number}, x: number, y: number, w: number = source.w, h: number = source.h, canvasId: string = 'game') => {
+    const ctx = Taro.createCanvasContext(canvasId, this)
+    ctx.drawImage(src, source.x, source.y, source.w, source.h, x, y, w, h)
+    ctx.draw()
+  }
+```
+##### 第三步：创建动画—— setInterval
+```tsx
+// 精灵动画
+const img = await preload(Uri + 'birds.png')
+let i = 0;
+setInterval(async () => {
+  await drawSprite(img, frames[`bird${i++%3+1}.png`], 2, 2)
+}, 100);
+```
+
+##### 或者 Canvas.requestAnimationFrame (WTF ???)
+
+不知道什么东西...
+
+
+Round2: 使用Spritejs来创建雪碧图精灵： [官方Demo](https://github.com/spritejs/sprite-wxapp)
+
+1. 其实是使用微信canvas来创建，并用spritejs方法来绘制，和我的`drawSprite`差不多
+2. 只针对微信小程序canvas，并且如果将Taro小程序工程转化成H5会不兼容（勿忘初心：减少差异的多端开发）
+3. 不支持远程url的加载，只支持本地图片素材 -> 放弃..
+
+结论：微信小程序的Canvas接口与原生使用的差异不大，但接口声明和资源加载与web不同，使用Spritejs反而增加差异性。
+
+> 扩展阅读：
+> [Taro 优秀学习资源汇总](http://taro-club.jd.com/topic/17/taro-%E4%BC%98%E7%A7%80%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB)
+> [小程序多端差异调研报告(微信，支付宝，头条，QQ)](https://www.cnblogs.com/iovec/p/11782902.html?utm_source=tuicool&utm_medium=referral)
+> [微信小程序开发资源汇总](https://github.com/justjavac/awesome-wechat-weapp)
+
 
 ### 工具集合
 
 * [mini-program-iconfont-cli](https://github.com/iconfont-cli/mini-program-iconfont-cli) - 把iconfont图标批量转换成多个平台小程序的标准组件。支持多色彩，支持自定义颜色
 * [ColorUI](https://github.com/weilanwl/ColorUI) - 鲜亮的高饱和色彩，专注视觉的小程序组件库
-* [微信小程序开发资源汇总](https://github.com/justjavac/awesome-wechat-weapp)
 
 ### 扩展：小游戏
 
-微信小游戏是Canvas实现的，官方推荐的Cocos、Egret、Laya
+微信小游戏是Canvas实现的，官方推荐的Cocos、Egret、Laya。
 
-> 扩展阅读： [Taro 优秀学习资源汇总](http://taro-club.jd.com/topic/17/taro-%E4%BC%98%E7%A7%80%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB)
+？ 小游戏框架导出到小程序 ？
